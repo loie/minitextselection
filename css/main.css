@@ -1,0 +1,110 @@
+body {
+    width: 100vw;
+    height: 100vh;
+}
+
+.splitted {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: stretch;
+    align-content: stretch;
+    justify-content: flex-start;
+    overflow: hidden;
+}
+
+.item {
+    width: 50vw;
+}
+
+.item textarea {
+    width: 100%;
+    height: 100vh;
+}
+
+.item .container {
+    max-width: 100%;
+    width: calc(50vw - 45px);
+}
+
+.item .action-container {
+    background-color: #777;
+    padding: 0.5em;
+}
+
+.item .action-container a {
+    display: inline-block;
+    color: #eee;
+    width: 2em;
+    text-align: center;
+    cursor: pointer;
+}
+
+.item .action-container a:hover {
+    color: white;
+    cursor: pointer;
+}
+
+.item .action-container .text-right {
+    display: block;
+    float: right;
+}
+
+.item .action-container .text-danger {
+    color: #FF4743;
+}
+
+.item .action-container .text-danger:hover {
+    color: #FF726F;
+}
+
+.output.item {
+    overflow-y: auto;
+    background-color: #333;
+    display: block;
+}
+
+.output.item .well .container {
+    padding-top: 15px;
+}
+
+ul {
+    list-style: none;
+    width: 100%;
+    padding: 20px;
+}
+
+.btn-inverse {
+    background-color: #333;
+    color: #eee;
+    border-radius: 5px 5px 0 0;
+}
+
+.btn-inverse:hover {
+    background-color: #666;
+    color: white;
+}
+
+.output .well {
+    background-color: #666;
+    color: #eee;
+    border-color: #999;
+    padding-top: 0;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.selector,
+.selector .container,
+.selector .action-container {
+    transition: all 0.3s ease-out;
+}
+
+.oli-hidden {
+    transform: scaleY(0.0);
+    transform-origin: 0 0;
+    opacity: 0;
+    padding: 0 !important;
+    height: 0 !important;
+}
+

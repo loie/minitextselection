@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/main.css" rel="stylesheet">
+        <link href="css/jquery-ui.min.css" rel="stylesheet">
+        <link href="css/jquery-ui.theme.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="css/font-awesome.min.css">
+        <script src="js/jquery-2.2.2.min.js"></script>
+        <script src="js/jquery-ui.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/jquery-textrange.js"></script>
+        <script src="js/main.js"></script>
+    </head>
+    <body>
+        <form class="splitted">
+            <div class="input item">
+                <div class="navbar navbar-default navbar-static-top">
+                    <div class="container">
+                        <a id="delSentence" href="#" class="btn btn-xs btn-default navbar-btn">Ersten Satz Löschen</a>
+                        <a id="loremIpsum" href="#" class="btn btn-xs btn-default navbar-btn">Lorem Ipsum</a>
+                    </div>
+                </div>
+                <div class="container">
+                    <textarea id="inputText"></textarea>
+                </div>
+            </div>
+            <div class="output item">
+                <div class="navbar navbar-default navbar-static-top navbar-inverse">
+                    <div class="container">
+                        <a id="splitAll" href="#" class="btn btn-xs btn-inverse navbar-btn">Alle aufspalten</a>
+                        <!-- <a id="loremIpsum" href="#" class="btn btn-xs btn-inverse navbar-btn">Lorem Ipsum</a> -->
+                    </div>
+                </div>
+                <div class="container">
+                    <ul id="selectionBlocks"></ul>
+                </div>
+            </div>
+        </form>
+    </body>
+</html>
