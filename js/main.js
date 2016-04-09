@@ -120,15 +120,15 @@ getNewSelection = function (currentSelection, fullText) {
 
 getBuildingBlock = function (text) {
     return '<li class="well selector">' +
-            '<div class="action-container">' +
-                '<a href="#" class="text-danger" data-action="close"><i class="fa fa-times-circle"></i></a>' +
-                '<span class="text-right">' +
-                    '<a href="#" data-action="split"><i class="fa fa-align-justify"></i></a>' +
-                    // '<a href="#" data-action="join"><i class="fa fa-toggle-down"></i></a>' +
-                '</span>' +
-            '</div>' +
-            '<div class="container" data-content="true"><textarea>' + text + '</textarea></div>' +
-        '</li>';
+                '<div class="action-container">' +
+                    '<a href="#" class="text-danger" data-action="close"><i class="fa fa-times-circle"></i></a>' +
+                    '<span class="text-right">' +
+                        '<a href="#" data-action="split"><i class="fa fa-align-justify"></i></a>' +
+                        // '<a href="#" data-action="join"><i class="fa fa-toggle-down"></i></a>' +
+                    '</span>' +
+                '</div>' +
+                '<div class="container" data-content="true" ><div contentEditable=true>' + text + '</div></div>' +
+            '</li>';
 };
 
 splitIntoWords = function (text) {
