@@ -127,7 +127,7 @@ getBuildingBlock = function (text) {
                     // '<a href="#" data-action="join"><i class="fa fa-toggle-down"></i></a>' +
                 '</span>' +
             '</div>' +
-            '<div class="container" data-content="true">' + text + '</div>' +
+            '<div class="container" data-content="true"><textarea>' + text + '</textarea></div>' +
         '</li>';
 };
 
