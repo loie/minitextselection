@@ -3,10 +3,6 @@ body {
     height: 100vh;
 }
 
-*[contenteditable], *[contentEditable] {
-    -webkit-user-select: auto !important;
-}
-
 .splitted {
     width: 100vw;
     height: 100vh;
@@ -69,6 +65,10 @@ body {
     color: #FF726F;
 }
 
+#selectionBlocks > :last-child .action-container [data-action=merge] {
+    display: none;
+}
+
 .output.item {
     overflow-y: auto;
     background-color: #333;
@@ -91,7 +91,7 @@ ul {
     border-radius: 5px 5px 0 0;
 }
 
-.btn-inverse:hover {
+.btn-inverse:hover, .btn-inverse:focus {
     background-color: #666;
     color: white;
 }

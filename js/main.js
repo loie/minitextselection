@@ -124,10 +124,10 @@ getBuildingBlock = function (text) {
                     '<a href="#" class="text-danger" data-action="close"><i class="fa fa-times-circle"></i></a>' +
                     '<span class="text-right">' +
                         '<a href="#" data-action="split"><i class="fa fa-align-justify"></i></a>' +
-                        // '<a href="#" data-action="join"><i class="fa fa-toggle-down"></i></a>' +
+                        '<a href="#" data-action="merge"><i class="fa fa-toggle-down"></i></a>' +
                     '</span>' +
                 '</div>' +
-                '<div class="container" data-content="true" ><div contentEditable=true>' + text + '</div></div>' +
+                '<div class="container" data-content="true" ><textarea class="editable">' + text + '</textarea></div>' +
             '</li>';
 };
 
@@ -140,7 +140,8 @@ splitIntoWords = function (text) {
 jQuery('document').ready(function () {
 
     var removeElement,
-        split;
+        split,
+        merge;
 
     removeElement = function (parentLi) {
         var elements, element, i;
@@ -158,8 +159,8 @@ jQuery('document').ready(function () {
 
     split = function (parentLi) {
         var element, text, words;
-        element = parentLi.children('[data-content=true]');
-        text = element.text();
+        element = parentLi.children('[data-content=true]').children('textarea');
+        text = element.val();
         removeElement(parentLi);
         words = splitIntoWords(text);
         words.forEach(function (word) {
@@ -169,26 +170,32 @@ jQuery('document').ready(function () {
         });
     };
 
+    merge = function (li, nextLi) {
+        var textLi, textNextLi;
+        textLi = li.children('[data-content=true]').children('textarea').val();
+        textNextLi = nextLi.children('[data-content=true]').children('textarea').val();
+        nextLi.children('[data-content=true]').children('textarea').val(textLi + ' ' + textNextLi);
+        removeElement(li);
+    };
+
     jQuery('#selectionBlocks').sortable({
         axis: 'y'
     });
 
     jQuery('#loremIpsum').click(function (event) {
         event.preventDefault();
-        event.stopPropagation();
-        jQuery('#inputText').text(loremIpsum);
+        jQuery('#inputText').val(loremIpsum);
     });
     jQuery('#delSentence').click(function (event) {
         var text,
             truncatedText;
         event.preventDefault();
-        event.stopPropagation();
         text = jQuery('#inputText').val();
         truncatedText = del1stSentence(text);
-        jQuery('#inputText').text(truncatedText);
+        jQuery('#inputText').val(truncatedText);
     });
 
-    jQuery('#inputText').on('mouseup', function (event) {
+    jQuery('#inputText').on('click', function (event) {
         var selection;
         event.preventDefault();
         if (event.which === 1) {
@@ -225,6 +232,14 @@ jQuery('document').ready(function () {
         split(parentLi);
     });
 
+    jQuery('#selectionBlocks').on('click', '[data-action=merge]', function (event) {
+        var parentLi, nextLi;
+        event.preventDefault();
+        parentLi = jQuery(this).parents('li');
+        nextLi = jQuery(parentLi).next();
+        merge(parentLi, nextLi);
+    });
+
     jQuery('#splitAll').on('click', function (event) {
         var elements, i;
         event.preventDefault();
@@ -232,5 +247,24 @@ jQuery('document').ready(function () {
         for (i = 0; i < elements.length; i += 1) {
             split(jQuery(elements[i]));
         }
+    });
+
+    jQuery('#mergeAll').on('click', function (event) {
+        var elements, i, mergedText;
+        event.preventDefault();
+        event.stopPropagation();
+        mergedText = '';
+        elements = jQuery('[data-content=true] textarea.editable');
+        for (i = 0; i < elements.length; i += 1) {
+            mergedText += jQuery(elements[i]).val();
+            mergedText += " ";
+        }
+        jQuery('#inputText').val(mergedText);
+    });
+
+    jQuery('#deleteAll').on('click', function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        jQuery('#selectionBlocks').html('');
     });
 });
