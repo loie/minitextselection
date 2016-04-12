@@ -42,6 +42,7 @@ getNewSelection = function (currentSelection, fullText) {
         getSelectionBound,
         getNextWordSelectionBound;
 
+
     isCharOfList = function (char, list) {
         return list.some(function (listChar) {
             return listChar === char;
@@ -77,7 +78,7 @@ getNewSelection = function (currentSelection, fullText) {
             char;
         if (index === 0 && operation(index) === 0) {
             updatedIndex = index;
-        } else if ((index === fullText.length - 1) && (operation(index) === fullText.length - 1)) {
+        } else if ((index >= fullText.length - 1) && (operation(index) >= fullText.length - 1)) {
             updatedIndex = index;
         } else {
             char = fullText.charAt(index);
@@ -142,7 +143,8 @@ jQuery('document').ready(function () {
     var removeElement,
         split,
         merge,
-        resizeTextAreas;
+        resizeTextAreas,
+        lastWorkingSelection;
 
     removeElement = function (parentLi) {
         var elements, element, i;
@@ -208,13 +210,17 @@ jQuery('document').ready(function () {
         jQuery('#inputText').val(truncatedText);
     });
 
-    jQuery('#inputText').on('click', function (event) {
+    jQuery('#inputText').on('mouseup', function (event) {
         var selection;
         event.preventDefault();
         if (event.which === 1) {
             if (event.ctrlKey === false) {
+                if (event.detail > 2) {
+                    jQuery('#inputText').textrange('set', lastWorkingSelection.start, lastWorkingSelection.end - lastWorkingSelection.start + 1);
+                }
                 selection = getNewSelection(jQuery(this).textrange(), jQuery(this).val(), event);
                 jQuery('#inputText').textrange('set', selection.start, selection.end - selection.start + 1);
+                lastWorkingSelection = jQuery('#inputText').textrange();
             }
         }
     });
