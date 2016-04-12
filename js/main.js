@@ -1,4 +1,4 @@
-/*global jQuery, window */
+/*global jQuery, window, autosize */
 'use strict';
 var loremIpsum,
     del1stSentence,
@@ -141,7 +141,8 @@ jQuery('document').ready(function () {
 
     var removeElement,
         split,
-        merge;
+        merge,
+        resizeTextAreas;
 
     removeElement = function (parentLi) {
         var elements, element, i;
@@ -154,6 +155,7 @@ jQuery('document').ready(function () {
         jQuery(parentLi).addClass('oli-hidden');
         window.setTimeout(function () {
             jQuery(parentLi).remove();
+            resizeTextAreas();
         }, 300);
     };
 
@@ -176,7 +178,18 @@ jQuery('document').ready(function () {
         textNextLi = nextLi.children('[data-content=true]').children('textarea').val();
         nextLi.children('[data-content=true]').children('textarea').val(textLi + ' ' + textNextLi);
         removeElement(li);
+        autosize(nextLi.children('[data-content=true]').children('textarea'));
     };
+
+    resizeTextAreas = function () {
+        window.setTimeout(function () {
+            autosize(jQuery('[data-content=true] textarea'));
+        }, 300);
+    };
+
+    jQuery('#selectionBlocks').on('keyup', 'textarea', function () {
+        resizeTextAreas();
+    });
 
     jQuery('#selectionBlocks').sortable({
         axis: 'y'
@@ -215,7 +228,7 @@ jQuery('document').ready(function () {
         event.preventDefault();
         selection = jQuery('#inputText').textrange();
         jQuery('#selectionBlocks').append(getBuildingBlock(selection.text));
-
+        resizeTextAreas();
     });
 
     jQuery('#selectionBlocks').on('click', '[data-action=close]', function (event) {
@@ -230,6 +243,7 @@ jQuery('document').ready(function () {
         event.preventDefault();
         parentLi = jQuery(this).parents('li');
         split(parentLi);
+        resizeTextAreas();
     });
 
     jQuery('#selectionBlocks').on('click', '[data-action=merge]', function (event) {
@@ -260,6 +274,7 @@ jQuery('document').ready(function () {
             mergedText += " ";
         }
         jQuery('#inputText').val(mergedText);
+        resizeTextAreas();
     });
 
     jQuery('#deleteAll').on('click', function (event) {
