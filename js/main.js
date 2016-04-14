@@ -288,4 +288,11 @@ jQuery('document').ready(function () {
         event.stopPropagation();
         jQuery('#selectionBlocks').html('');
     });
+
+    jQuery('.add-char-block').on('click', function (event) {
+        var value;
+        event.preventDefault();
+        value = jQuery(this).attr('data-value');
+        jQuery('#selectionBlocks').append(getBuildingBlock(value));
+    });
 });

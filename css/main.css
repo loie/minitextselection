@@ -119,3 +119,9 @@ ul {
     height: 0 !important;
 }
 
+.panel-heading {
+
+    overflow: hidden;
+    padding-top: 16px;
+}
+
